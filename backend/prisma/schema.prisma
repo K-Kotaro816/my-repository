@@ -8,12 +8,30 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
-  passwordHash String   @map("password_hash")
-  displayName  String?  @map("display_name") @db.VarChar(100)
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  displayName  String?   @map("display_name") @db.VarChar(100)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  projects     Project[]
 
   @@map("users")
+}
+
+model Project {
+  id                 String   @id @default(uuid())
+  userId             String   @map("user_id")
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name               String   @db.VarChar(255)
+  roomWidthMm        Int      @map("room_width_mm")
+  roomHeightMm       Int      @map("room_height_mm")
+  wallData           Json?    @map("wall_data")
+  floorPlanImagePath String?  @map("floor_plan_image_path") @db.VarChar(500)
+  floorPlanMode      String   @default("draw") @map("floor_plan_mode") @db.VarChar(20)
+  canvasState        Json?    @map("canvas_state")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  @@map("projects")
 }
