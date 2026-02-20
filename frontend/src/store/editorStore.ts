@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { WallSegment } from '../types/project';
 
-export type EditorTool = 'select' | 'wall' | 'pan';
+export type EditorTool = 'select' | 'wall' | 'pan' | 'furniture';
 
 interface EditorState {
   tool: EditorTool;

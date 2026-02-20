@@ -7,12 +7,20 @@ import { RoomCanvas } from '../components/editor/RoomCanvas';
 import { GridLayer } from '../components/editor/GridLayer';
 import { WallDrawingLayer } from '../components/editor/WallDrawingLayer';
 import { EditorToolbar } from '../components/editor/EditorToolbar';
+import { FurnitureLayer } from '../components/editor/FurnitureLayer';
+import { FurniturePalette } from '../components/editor/FurniturePalette';
+import { FurniturePropertiesPanel } from '../components/editor/FurniturePropertiesPanel';
+import { useFurnitureStore } from '../store/furnitureStore';
+import { useAutoSave } from '../hooks/useAutoSave';
 
 export function EditorPage() {
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
   const { currentProject, isLoading, error, fetchProject, setCurrentProject } = useProjectStore();
   const { setWalls, reset } = useEditorStore();
+  const { setFurniture, reset: resetFurniture } = useFurnitureStore();
+
+  useAutoSave(projectId);
 
   useEffect(() => {
     if (projectId) {
@@ -21,14 +29,18 @@ export function EditorPage() {
     return () => {
       setCurrentProject(null);
       reset();
+      resetFurniture();
     };
-  }, [projectId, fetchProject, setCurrentProject, reset]);
+  }, [projectId, fetchProject, setCurrentProject, reset, resetFurniture]);
 
   useEffect(() => {
     if (currentProject?.wallData) {
       setWalls(currentProject.wallData);
     }
-  }, [currentProject, setWalls]);
+    if (currentProject?.furnitureData) {
+      setFurniture(currentProject.furnitureData);
+    }
+  }, [currentProject, setWalls, setFurniture]);
 
   if (isLoading && !currentProject) {
     return (
@@ -76,6 +88,8 @@ export function EditorPage() {
       </header>
       <div className="flex-1 relative">
         <EditorToolbar />
+        <FurniturePalette />
+        <FurniturePropertiesPanel />
         <RoomCanvas
           roomWidthMm={currentProject.roomWidthMm}
           roomHeightMm={currentProject.roomHeightMm}
@@ -88,6 +102,12 @@ export function EditorPage() {
           </Layer>
           <Layer>
             <WallDrawingLayer
+              roomWidthMm={currentProject.roomWidthMm}
+              roomHeightMm={currentProject.roomHeightMm}
+            />
+          </Layer>
+          <Layer>
+            <FurnitureLayer
               roomWidthMm={currentProject.roomWidthMm}
               roomHeightMm={currentProject.roomHeightMm}
             />

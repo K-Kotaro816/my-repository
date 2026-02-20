@@ -12,6 +12,7 @@ export interface UpdateProjectData {
   roomWidthMm?: number;
   roomHeightMm?: number;
   wallData?: unknown;
+  furnitureData?: unknown;
   canvasState?: unknown;
   floorPlanMode?: string;
   floorPlanImagePath?: string;

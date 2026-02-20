@@ -19,6 +19,7 @@ const updateProjectSchema = z.object({
   roomWidthMm: z.number().min(1000).max(50000).optional(),
   roomHeightMm: z.number().min(1000).max(50000).optional(),
   wallData: z.unknown().optional(),
+  furnitureData: z.unknown().optional(),
   canvasState: z.unknown().optional(),
   floorPlanMode: z.enum(['draw', 'image']).optional(),
 });
@@ -141,6 +142,9 @@ export function createProjectRoutes(
    *                 type: string
    *               wallData:
    *                 type: object
+   *               furnitureData:
+   *                 type: object
+   *                 description: 家具配置データ
    *               canvasState:
    *                 type: object
    *     responses:

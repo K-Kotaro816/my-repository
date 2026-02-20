@@ -3,6 +3,7 @@ import { useEditorStore, type EditorTool } from '../../store/editorStore';
 const tools: { id: EditorTool; label: string; description: string }[] = [
   { id: 'select', label: '選択', description: 'オブジェクト選択・パン' },
   { id: 'wall', label: '壁描画', description: 'クリックで頂点配置、ダブルクリックで確定' },
+  { id: 'furniture', label: '家具配置', description: 'カタログから家具を選んで配置' },
   { id: 'pan', label: '移動', description: 'ドラッグでキャンバス移動' },
 ];
 

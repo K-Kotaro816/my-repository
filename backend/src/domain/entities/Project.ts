@@ -10,6 +10,18 @@ export interface CanvasState {
   y: number;
 }
 
+export interface FurnitureItem {
+  id: string;
+  type: string;
+  name: string;
+  x: number;
+  y: number;
+  widthMm: number;
+  heightMm: number;
+  rotation: number;
+  color: string;
+}
+
 export interface Project {
   id: string;
   userId: string;
@@ -17,6 +29,7 @@ export interface Project {
   roomWidthMm: number;
   roomHeightMm: number;
   wallData: WallSegment[] | null;
+  furnitureData: FurnitureItem[] | null;
   floorPlanImagePath: string | null;
   floorPlanMode: string;
   canvasState: CanvasState | null;
