@@ -13,6 +13,14 @@ import { LoginUser } from './application/usecases/LoginUser';
 import { GetCurrentUser } from './application/usecases/GetCurrentUser';
 import { AuthController } from './presentation/controllers/AuthController';
 import { createAuthRoutes } from './presentation/routes/auth.routes';
+import { PrismaProjectRepository } from './infrastructure/repositories/PrismaProjectRepository';
+import { CreateProject } from './application/usecases/CreateProject';
+import { ListProjects } from './application/usecases/ListProjects';
+import { GetProject } from './application/usecases/GetProject';
+import { UpdateProject } from './application/usecases/UpdateProject';
+import { DeleteProject } from './application/usecases/DeleteProject';
+import { ProjectController } from './presentation/controllers/ProjectController';
+import { createProjectRoutes } from './presentation/routes/project.routes';
 import { errorHandler } from './presentation/middleware/errorHandler';
 
 const prisma = new PrismaClient();
@@ -27,8 +35,23 @@ const registerUser = new RegisterUser(userRepository, passwordHasher, tokenServi
 const loginUser = new LoginUser(userRepository, passwordHasher, tokenService);
 const getCurrentUser = new GetCurrentUser(userRepository);
 
+// Project Infrastructure & Use Cases
+const projectRepository = new PrismaProjectRepository(prisma);
+const createProject = new CreateProject(projectRepository);
+const listProjects = new ListProjects(projectRepository);
+const getProject = new GetProject(projectRepository);
+const updateProject = new UpdateProject(projectRepository);
+const deleteProject = new DeleteProject(projectRepository);
+
 // Controllers
 const authController = new AuthController(registerUser, loginUser, getCurrentUser);
+const projectController = new ProjectController(
+  createProject,
+  listProjects,
+  getProject,
+  updateProject,
+  deleteProject,
+);
 
 // Express App
 const app = express();
@@ -41,6 +64,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use('/api/auth', createAuthRoutes(authController, tokenService));
+app.use('/api/projects', createProjectRoutes(projectController, tokenService));
 
 // Health check
 app.get('/api/health', (_req, res) => {
