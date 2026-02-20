@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 import { PrismaClient } from '@prisma/client';
 import swaggerUi from 'swagger-ui-express';
 
@@ -19,6 +20,8 @@ import { ListProjects } from './application/usecases/ListProjects';
 import { GetProject } from './application/usecases/GetProject';
 import { UpdateProject } from './application/usecases/UpdateProject';
 import { DeleteProject } from './application/usecases/DeleteProject';
+import { UploadFloorPlan } from './application/usecases/UploadFloorPlan';
+import { DeleteFloorPlan } from './application/usecases/DeleteFloorPlan';
 import { ProjectController } from './presentation/controllers/ProjectController';
 import { createProjectRoutes } from './presentation/routes/project.routes';
 import { errorHandler } from './presentation/middleware/errorHandler';
@@ -42,6 +45,8 @@ const listProjects = new ListProjects(projectRepository);
 const getProject = new GetProject(projectRepository);
 const updateProject = new UpdateProject(projectRepository);
 const deleteProject = new DeleteProject(projectRepository);
+const uploadFloorPlan = new UploadFloorPlan(projectRepository);
+const deleteFloorPlan = new DeleteFloorPlan(projectRepository);
 
 // Controllers
 const authController = new AuthController(registerUser, loginUser, getCurrentUser);
@@ -51,6 +56,8 @@ const projectController = new ProjectController(
   getProject,
   updateProject,
   deleteProject,
+  uploadFloorPlan,
+  deleteFloorPlan,
 );
 
 // Express App
@@ -58,6 +65,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Static files (uploaded images)
+app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')));
 
 // Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

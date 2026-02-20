@@ -10,6 +10,8 @@ import { EditorToolbar } from '../components/editor/EditorToolbar';
 import { FurnitureLayer } from '../components/editor/FurnitureLayer';
 import { FurniturePalette } from '../components/editor/FurniturePalette';
 import { FurniturePropertiesPanel } from '../components/editor/FurniturePropertiesPanel';
+import { FloorPlanImageLayer } from '../components/editor/FloorPlanImageLayer';
+import { FloorPlanPanel } from '../components/editor/FloorPlanPanel';
 import { useFurnitureStore } from '../store/furnitureStore';
 import { useAutoSave } from '../hooks/useAutoSave';
 
@@ -90,6 +92,7 @@ export function EditorPage() {
         <EditorToolbar />
         <FurniturePalette />
         <FurniturePropertiesPanel />
+        <FloorPlanPanel />
         <RoomCanvas
           roomWidthMm={currentProject.roomWidthMm}
           roomHeightMm={currentProject.roomHeightMm}
@@ -100,12 +103,23 @@ export function EditorPage() {
               roomHeightMm={currentProject.roomHeightMm}
             />
           </Layer>
-          <Layer>
-            <WallDrawingLayer
-              roomWidthMm={currentProject.roomWidthMm}
-              roomHeightMm={currentProject.roomHeightMm}
-            />
-          </Layer>
+          {currentProject.floorPlanMode === 'image' && currentProject.floorPlanImagePath && (
+            <Layer>
+              <FloorPlanImageLayer
+                imagePath={currentProject.floorPlanImagePath}
+                roomWidthMm={currentProject.roomWidthMm}
+                roomHeightMm={currentProject.roomHeightMm}
+              />
+            </Layer>
+          )}
+          {currentProject.floorPlanMode !== 'image' && (
+            <Layer>
+              <WallDrawingLayer
+                roomWidthMm={currentProject.roomWidthMm}
+                roomHeightMm={currentProject.roomHeightMm}
+              />
+            </Layer>
+          )}
           <Layer>
             <FurnitureLayer
               roomWidthMm={currentProject.roomWidthMm}

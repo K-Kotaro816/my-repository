@@ -24,3 +24,17 @@ export async function updateProject(id: string, data: UpdateProjectInput): Promi
 export async function deleteProject(id: string): Promise<void> {
   await client.delete(`/projects/${id}`);
 }
+
+export async function uploadFloorPlan(projectId: string, file: File): Promise<Project> {
+  const formData = new FormData();
+  formData.append('floorPlanImage', file);
+  const response = await client.post<Project>(`/projects/${projectId}/floorplan`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+}
+
+export async function deleteFloorPlan(projectId: string): Promise<Project> {
+  const response = await client.delete<Project>(`/projects/${projectId}/floorplan`);
+  return response.data;
+}

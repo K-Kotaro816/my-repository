@@ -4,6 +4,7 @@ import { ProjectController } from '../controllers/ProjectController';
 import { validate } from '../middleware/validate';
 import { createAuthMiddleware } from '../middleware/authMiddleware';
 import { ITokenService } from '../../application/interfaces/ITokenService';
+import { uploadFloorPlan } from '../../infrastructure/config/upload';
 
 const createProjectSchema = z.object({
   name: z.string().min(1, 'プロジェクト名を入力してください').max(255),
@@ -177,6 +178,65 @@ export function createProjectRoutes(
    *         description: プロジェクトが見つからない
    */
   router.delete('/:id', authMiddleware, projectController.remove);
+
+  /**
+   * @swagger
+   * /api/projects/{id}/floorplan:
+   *   post:
+   *     summary: 間取り画像アップロード
+   *     tags: [Projects]
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *           format: uuid
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         multipart/form-data:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               floorPlanImage:
+   *                 type: string
+   *                 format: binary
+   *     responses:
+   *       200:
+   *         description: アップロード成功
+   *       400:
+   *         description: ファイルが不正
+   */
+  router.post(
+    '/:id/floorplan',
+    authMiddleware,
+    uploadFloorPlan.single('floorPlanImage'),
+    projectController.uploadFloorPlan,
+  );
+
+  /**
+   * @swagger
+   * /api/projects/{id}/floorplan:
+   *   delete:
+   *     summary: 間取り画像削除
+   *     tags: [Projects]
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *           format: uuid
+   *     responses:
+   *       200:
+   *         description: 削除成功
+   */
+  router.delete('/:id/floorplan', authMiddleware, projectController.deleteFloorPlan);
 
   return router;
 }
