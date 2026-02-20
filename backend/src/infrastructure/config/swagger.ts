@@ -49,6 +49,11 @@ const options: swaggerJsdoc.Options = {
             roomWidthMm: { type: 'integer' },
             roomHeightMm: { type: 'integer' },
             wallData: { type: 'object', nullable: true },
+            furnitureData: {
+              type: 'object',
+              nullable: true,
+              description: '家具配置データ',
+            },
             floorPlanImagePath: { type: 'string', nullable: true },
             floorPlanMode: { type: 'string', enum: ['draw', 'image'] },
             canvasState: { type: 'object', nullable: true },
