@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { EditorPage } from './pages/EditorPage';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
 
 function App() {
@@ -14,6 +15,14 @@ function App() {
         element={
           <ProtectedRoute>
             <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/editor/:projectId"
+        element={
+          <ProtectedRoute>
+            <EditorPage />
           </ProtectedRoute>
         }
       />
