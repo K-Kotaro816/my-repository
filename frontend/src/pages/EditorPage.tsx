@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Layer } from 'react-konva';
 import { useProjectStore } from '../store/projectStore';
 import { useEditorStore } from '../store/editorStore';
 import { RoomCanvas } from '../components/editor/RoomCanvas';
+import { GridLayer } from '../components/editor/GridLayer';
+import { WallDrawingLayer } from '../components/editor/WallDrawingLayer';
+import { EditorToolbar } from '../components/editor/EditorToolbar';
 
 export function EditorPage() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -71,10 +75,24 @@ export function EditorPage() {
         </div>
       </header>
       <div className="flex-1 relative">
+        <EditorToolbar />
         <RoomCanvas
           roomWidthMm={currentProject.roomWidthMm}
           roomHeightMm={currentProject.roomHeightMm}
-        />
+        >
+          <Layer>
+            <GridLayer
+              roomWidthMm={currentProject.roomWidthMm}
+              roomHeightMm={currentProject.roomHeightMm}
+            />
+          </Layer>
+          <Layer>
+            <WallDrawingLayer
+              roomWidthMm={currentProject.roomWidthMm}
+              roomHeightMm={currentProject.roomHeightMm}
+            />
+          </Layer>
+        </RoomCanvas>
       </div>
     </div>
   );
