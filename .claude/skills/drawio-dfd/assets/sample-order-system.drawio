@@ -1,0 +1,86 @@
+<mxfile host="VSCode" modified="2024-01-01T00:00:00.000Z" agent="Claude" version="1.0">
+  <diagram id="dfd-sample" name="注文処理システム DFD">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- 外部エンティティ: 顧客 -->
+        <mxCell id="entity_customer" value="顧客" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="150" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- プロセス1: 注文受付 -->
+        <mxCell id="process_1" value="&lt;b&gt;1.0&lt;/b&gt;&lt;hr&gt;注文受付" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="230" y="140" width="100" height="80" as="geometry"/>
+        </mxCell>
+        
+        <!-- プロセス2: 在庫確認 -->
+        <mxCell id="process_2" value="&lt;b&gt;2.0&lt;/b&gt;&lt;hr&gt;在庫確認" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="420" y="140" width="100" height="80" as="geometry"/>
+        </mxCell>
+        
+        <!-- プロセス3: 出荷処理 -->
+        <mxCell id="process_3" value="&lt;b&gt;3.0&lt;/b&gt;&lt;hr&gt;出荷処理" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="610" y="140" width="100" height="80" as="geometry"/>
+        </mxCell>
+        
+        <!-- データストア: 注文DB -->
+        <mxCell id="datastore_orders" value="D1 | 注文データ" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=1;right=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="250" y="300" width="140" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- データストア: 在庫DB -->
+        <mxCell id="datastore_inventory" value="D2 | 在庫データ" style="shape=partialRectangle;whiteSpace=wrap;html=1;left=1;right=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="440" y="300" width="140" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- 外部エンティティ: 配送業者 -->
+        <mxCell id="entity_shipper" value="配送業者" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="150" width="100" height="60" as="geometry"/>
+        </mxCell>
+        
+        <!-- データフロー: 顧客 → 注文受付 -->
+        <mxCell id="flow_customer_order" value="注文情報" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;" edge="1" parent="1" source="entity_customer" target="process_1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- データフロー: 注文受付 → 注文DB -->
+        <mxCell id="flow_order_db" value="注文データ" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;" edge="1" parent="1" source="process_1" target="datastore_orders">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- データフロー: 注文受付 → 在庫確認 -->
+        <mxCell id="flow_order_stock" value="確認依頼" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;" edge="1" parent="1" source="process_1" target="process_2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- データフロー: 在庫確認 ↔ 在庫DB -->
+        <mxCell id="flow_stock_db" value="在庫照会" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="process_2" target="datastore_inventory">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- データフロー: 在庫確認 → 出荷処理 -->
+        <mxCell id="flow_stock_ship" value="出荷指示" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;" edge="1" parent="1" source="process_2" target="process_3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- データフロー: 出荷処理 → 配送業者 -->
+        <mxCell id="flow_ship_delivery" value="配送依頼" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;" edge="1" parent="1" source="process_3" target="entity_shipper">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- データフロー: 注文受付 → 顧客（確認） -->
+        <mxCell id="flow_confirm_customer" value="注文確認" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="process_1" target="entity_customer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="160"/>
+              <mxPoint x="200" y="160"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
