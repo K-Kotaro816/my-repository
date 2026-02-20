@@ -107,5 +107,5 @@ main ← staging ← develop ← feature/xxx
 - ESLint + Prettier の設定に従う
 - コミット前に husky pre-commit hook で自動的にlint・フォーマットを実行する
 - フロントエンドのスタイルは Tailwind CSS を使用する
-- バックエンドは Controller → Service → DB の3層構造
-- DB接続は ORM を使わず `pg` で直接SQLを書く
+- バックエンドはクリーンアーキテクチャ（domain → application → infrastructure / presentation）
+- DB接続は **Prisma** を使用する
