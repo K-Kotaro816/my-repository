@@ -29,6 +29,7 @@ model Project {
   wallData           Json?    @map("wall_data")
   floorPlanImagePath String?  @map("floor_plan_image_path") @db.VarChar(500)
   floorPlanMode      String   @default("draw") @map("floor_plan_mode") @db.VarChar(20)
+  furnitureData      Json?    @map("furniture_data")
   canvasState        Json?    @map("canvas_state")
   createdAt          DateTime @default(now()) @map("created_at")
   updatedAt          DateTime @updatedAt @map("updated_at")
