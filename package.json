@@ -1,0 +1,30 @@
+{
+  "name": "room-planner",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3"
+  },
+  "lint-staged": {
+    "frontend/src/**/*.{ts,tsx}": [
+      "pnpm --filter room-planner-frontend lint",
+      "pnpm --filter room-planner-frontend format"
+    ],
+    "backend/src/**/*.ts": [
+      "pnpm --filter room-planner-backend lint",
+      "pnpm --filter room-planner-backend format"
+    ]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma"
+    ]
+  }
+}
