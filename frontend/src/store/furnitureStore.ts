@@ -6,6 +6,7 @@ interface FurnitureState {
   selectedId: string | null;
   placingType: string | null;
   isDirty: boolean;
+  collidingIds: Set<string>;
   setFurniture: (items: FurnitureItem[]) => void;
   addFurniture: (item: FurnitureItem) => void;
   updateFurniture: (id: string, updates: Partial<FurnitureItem>) => void;
@@ -14,6 +15,7 @@ interface FurnitureState {
   setPlacingType: (type: string | null) => void;
   rotateFurniture: (id: string) => void;
   setDirty: (dirty: boolean) => void;
+  setCollidingIds: (ids: Set<string>) => void;
   reset: () => void;
 }
 
@@ -22,6 +24,7 @@ export const useFurnitureStore = create<FurnitureState>((set) => ({
   selectedId: null,
   placingType: null,
   isDirty: false,
+  collidingIds: new Set<string>(),
 
   setFurniture: (furniture) => set({ furniture }),
 
@@ -60,11 +63,14 @@ export const useFurnitureStore = create<FurnitureState>((set) => ({
 
   setDirty: (isDirty) => set({ isDirty }),
 
+  setCollidingIds: (collidingIds) => set({ collidingIds }),
+
   reset: () =>
     set({
       furniture: [],
       selectedId: null,
       placingType: null,
       isDirty: false,
+      collidingIds: new Set<string>(),
     }),
 }));
