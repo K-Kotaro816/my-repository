@@ -7,6 +7,7 @@ import { RoomCanvas } from '../components/editor/RoomCanvas';
 import { GridLayer } from '../components/editor/GridLayer';
 import { WallDrawingLayer } from '../components/editor/WallDrawingLayer';
 import { EditorToolbar } from '../components/editor/EditorToolbar';
+import { FurnitureLayer } from '../components/editor/FurnitureLayer';
 
 export function EditorPage() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -88,6 +89,12 @@ export function EditorPage() {
           </Layer>
           <Layer>
             <WallDrawingLayer
+              roomWidthMm={currentProject.roomWidthMm}
+              roomHeightMm={currentProject.roomHeightMm}
+            />
+          </Layer>
+          <Layer>
+            <FurnitureLayer
               roomWidthMm={currentProject.roomWidthMm}
               roomHeightMm={currentProject.roomHeightMm}
             />
