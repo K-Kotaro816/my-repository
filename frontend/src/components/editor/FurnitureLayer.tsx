@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { Group, Rect, Text, Line } from 'react-konva';
 import type Konva from 'konva';
 import { useEditorStore } from '../../store/editorStore';
 import { useFurnitureStore } from '../../store/furnitureStore';
+import { useCollisionDetection } from '../../hooks/useCollisionDetection';
 import { FURNITURE_CATALOG } from '../../constants/furnitureCatalog';
 import { PIXELS_PER_MM } from './RoomCanvas';
 import type { FurnitureItem } from '../../types/project';
@@ -13,12 +15,24 @@ interface FurnitureLayerProps {
 
 export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProps) {
   const { tool, scale } = useEditorStore();
-  const { furniture, selectedId, placingType, addFurniture, updateFurniture, selectFurniture } =
-    useFurnitureStore();
+  const {
+    furniture,
+    selectedId,
+    placingType,
+    collidingIds,
+    addFurniture,
+    updateFurniture,
+    selectFurniture,
+  } = useFurnitureStore();
+  const { checkCollisionsOnDrag, checkAllCollisions } = useCollisionDetection();
 
   const isDraggable = tool === 'select' || tool === 'furniture';
   const roomWidthPx = roomWidthMm * PIXELS_PER_MM;
   const roomHeightPx = roomHeightMm * PIXELS_PER_MM;
+
+  useEffect(() => {
+    checkAllCollisions();
+  }, [checkAllCollisions]);
 
   const handleCanvasClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     if (tool !== 'furniture' || !placingType) {
@@ -55,6 +69,12 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
     addFurniture(newItem);
   };
 
+  const handleDragMove = (e: Konva.KonvaEventObject<DragEvent>, item: FurnitureItem) => {
+    const xMm = e.target.x() / PIXELS_PER_MM;
+    const yMm = e.target.y() / PIXELS_PER_MM;
+    checkCollisionsOnDrag(item.id, xMm, yMm);
+  };
+
   const handleDragEnd = (e: Konva.KonvaEventObject<DragEvent>, item: FurnitureItem) => {
     const xMm = e.target.x() / PIXELS_PER_MM;
     const yMm = e.target.y() / PIXELS_PER_MM;
@@ -84,6 +104,7 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
         const widthPx = item.widthMm * PIXELS_PER_MM;
         const heightPx = item.heightMm * PIXELS_PER_MM;
         const isSelected = selectedId === item.id;
+        const isColliding = collidingIds.has(item.id);
 
         return (
           <Group
@@ -95,6 +116,7 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
             offsetY={heightPx / 2}
             draggable={isDraggable}
             onClick={(e) => handleItemClick(e, item.id)}
+            onDragMove={(e) => handleDragMove(e, item)}
             onDragEnd={(e) => handleDragEnd(e, item)}
             dragBoundFunc={(pos) => {
               const xMm = pos.x / PIXELS_PER_MM;
@@ -111,11 +133,21 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
               width={widthPx}
               height={heightPx}
               fill={item.color}
-              stroke={isSelected ? '#2563eb' : '#64748b'}
-              strokeWidth={isSelected ? 2 / scale : 1 / scale}
+              stroke={isColliding ? '#ef4444' : isSelected ? '#2563eb' : '#64748b'}
+              strokeWidth={isColliding ? 2.5 / scale : isSelected ? 2 / scale : 1 / scale}
               cornerRadius={2}
               opacity={0.85}
             />
+            {isColliding && (
+              <Rect
+                width={widthPx}
+                height={heightPx}
+                fill="#ef4444"
+                opacity={0.15}
+                listening={false}
+                cornerRadius={2}
+              />
+            )}
             <Text
               text={item.name}
               width={widthPx}
