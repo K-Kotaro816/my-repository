@@ -15,7 +15,7 @@ export interface UpdateProjectData {
   furnitureData?: unknown;
   canvasState?: unknown;
   floorPlanMode?: string;
-  floorPlanImagePath?: string;
+  floorPlanImagePath?: string | null;
 }
 
 export interface IProjectRepository {
