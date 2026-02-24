@@ -78,8 +78,11 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
     checkCollisionsOnDrag(item.id, xMm, yMm);
   };
 
-  const handleDragEnd = (e: Konva.KonvaEventObject<DragEvent>, item: FurnitureItem) => {
+  const handleDragStart = () => {
     pushSnapshot();
+  };
+
+  const handleDragEnd = (e: Konva.KonvaEventObject<DragEvent>, item: FurnitureItem) => {
     const xMm = e.target.x() / PIXELS_PER_MM;
     const yMm = e.target.y() / PIXELS_PER_MM;
     updateFurniture(item.id, {
@@ -120,6 +123,7 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
             offsetY={heightPx / 2}
             draggable={isDraggable}
             onClick={(e) => handleItemClick(e, item.id)}
+            onDragStart={handleDragStart}
             onDragMove={(e) => handleDragMove(e, item)}
             onDragEnd={(e) => handleDragEnd(e, item)}
             dragBoundFunc={(pos) => {
