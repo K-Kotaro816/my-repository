@@ -54,6 +54,7 @@ export function RoomCanvas({ roomWidthMm, roomHeightMm, children }: RoomCanvasPr
 
   const handleDragEnd = useCallback(
     (e: Konva.KonvaEventObject<DragEvent>) => {
+      if (e.target !== stageRef.current) return;
       setPosition({ x: e.target.x(), y: e.target.y() });
     },
     [setPosition],
