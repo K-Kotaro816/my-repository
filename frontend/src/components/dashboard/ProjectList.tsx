@@ -10,8 +10,8 @@ export function ProjectList({ projects, onDelete }: ProjectListProps) {
   if (projects.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">プロジェクトはまだありません</p>
-        <p className="text-gray-400 text-sm mt-2">「新規プロジェクト」ボタンから作成してください</p>
+        <p className="text-gray-400 text-lg">プロジェクトはまだありません</p>
+        <p className="text-gray-500 text-sm mt-2">「新規プロジェクト」ボタンから作成してください</p>
       </div>
     );
   }

@@ -26,12 +26,12 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
       <h2 className="text-2xl font-bold text-center mb-6">ログイン</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-red-900/20 border border-red-800 text-red-400 px-4 py-3 rounded">
             {error}
             <button
               type="button"
               onClick={clearError}
-              className="float-right text-red-500 hover:text-red-700"
+              className="float-right text-red-400 hover:text-red-300"
             >
               &times;
             </button>
@@ -39,7 +39,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
         )}
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
             メールアドレス
           </label>
           <input
@@ -48,13 +48,13 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="user@example.com"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
             パスワード
           </label>
           <input
@@ -63,7 +63,7 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="8文字以上"
           />
         </div>
@@ -76,9 +76,9 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
           {isLoading ? 'ログイン中...' : 'ログイン'}
         </button>
 
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-gray-400">
           アカウントをお持ちでないですか？{' '}
-          <Link to="/register" className="text-blue-600 hover:underline">
+          <Link to="/register" className="text-blue-400 hover:underline">
             新規登録
           </Link>
         </p>

@@ -144,7 +144,7 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
               width={widthPx}
               height={heightPx}
               fill={item.color}
-              stroke={isColliding ? '#ef4444' : isSelected ? '#2563eb' : '#64748b'}
+              stroke={isColliding ? '#ef4444' : isSelected ? '#2563eb' : '#94a3b8'}
               strokeWidth={isColliding ? 2.5 / scale : isSelected ? 2 / scale : 1 / scale}
               cornerRadius={2}
               opacity={0.85}
@@ -166,7 +166,7 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
               align="center"
               verticalAlign="middle"
               fontSize={Math.max(8, 12 / scale)}
-              fill="#1f2937"
+              fill="#e2e8f0"
               listening={false}
             />
           </Group>

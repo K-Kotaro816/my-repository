@@ -49,20 +49,20 @@ export function EditorPage() {
 
   if (isLoading && !currentProject) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-gray-500">読み込み中...</p>
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <p className="text-gray-400">読み込み中...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-500 mb-4">{error}</p>
+          <p className="text-red-400 mb-4">{error}</p>
           <button
             onClick={() => navigate('/dashboard')}
-            className="text-blue-600 hover:text-blue-700"
+            className="text-blue-400 hover:text-blue-300"
           >
             ダッシュボードに戻る
           </button>
@@ -77,16 +77,16 @@ export function EditorPage() {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
-      <header className="bg-white shadow-sm px-4 py-2 flex items-center justify-between z-10">
+      <header className="bg-gray-800 shadow-lg shadow-black/20 px-4 py-2 flex items-center justify-between z-10">
         <div className="flex items-center gap-4">
           <button
             onClick={() => navigate('/dashboard')}
-            className="text-gray-500 hover:text-gray-700 text-sm"
+            className="text-gray-400 hover:text-gray-200 text-sm"
           >
             ← 戻る
           </button>
-          <h1 className="text-lg font-semibold text-gray-900">{currentProject.name}</h1>
-          <span className="text-sm text-gray-400">
+          <h1 className="text-lg font-semibold text-gray-100">{currentProject.name}</h1>
+          <span className="text-sm text-gray-500">
             {currentProject.roomWidthMm / 10} x {currentProject.roomHeightMm / 10} cm
           </span>
           <SaveStatusIndicator />

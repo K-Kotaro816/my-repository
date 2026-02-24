@@ -12,22 +12,22 @@ export function FurniturePropertiesPanel() {
   const isColliding = collidingIds.has(selectedItem.id);
 
   return (
-    <div className="absolute bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 z-20 w-60">
+    <div className="absolute bottom-4 right-4 bg-gray-800 rounded-lg shadow-lg shadow-black/20 p-4 z-20 w-60">
       <div className="flex justify-between items-start mb-2">
-        <h3 className="text-sm font-bold text-gray-900">{selectedItem.name}</h3>
+        <h3 className="text-sm font-bold text-gray-100">{selectedItem.name}</h3>
         <button
           onClick={() => selectFurniture(null)}
-          className="text-gray-400 hover:text-gray-600 text-xs"
+          className="text-gray-500 hover:text-gray-300 text-xs"
         >
           &times;
         </button>
       </div>
       {isColliding && (
-        <div className="bg-red-50 border border-red-200 rounded-md px-2 py-1 mb-2">
-          <p className="text-xs text-red-600">&#9888; 他の家具と重なっています</p>
+        <div className="bg-red-900/20 border border-red-800 rounded-md px-2 py-1 mb-2">
+          <p className="text-xs text-red-400">&#9888; 他の家具と重なっています</p>
         </div>
       )}
-      <div className="text-xs text-gray-600 space-y-1 mb-3">
+      <div className="text-xs text-gray-400 space-y-1 mb-3">
         <p>
           位置: X={Math.round(selectedItem.x / 10)}cm, Y={Math.round(selectedItem.y / 10)}cm
         </p>
@@ -42,7 +42,7 @@ export function FurniturePropertiesPanel() {
             pushSnapshot();
             rotateFurniture(selectedItem.id);
           }}
-          className="flex-1 py-1.5 px-3 text-xs bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+          className="flex-1 py-1.5 px-3 text-xs bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600 transition-colors"
         >
           90°回転
         </button>
@@ -51,7 +51,7 @@ export function FurniturePropertiesPanel() {
             pushSnapshot();
             removeFurniture(selectedItem.id);
           }}
-          className="flex-1 py-1.5 px-3 text-xs text-red-600 border border-red-200 rounded-md hover:bg-red-50 transition-colors"
+          className="flex-1 py-1.5 px-3 text-xs text-red-400 border border-red-800 rounded-md hover:bg-red-900/20 transition-colors"
         >
           削除
         </button>

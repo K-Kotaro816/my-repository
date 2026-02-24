@@ -159,7 +159,7 @@ export const FURNITURE_CATALOG: FurnitureCatalogItem[] = [
     category: 'appliance',
     defaultWidthMm: 1100,
     defaultHeightMm: 50,
-    color: '#1f2937',
+    color: '#4b5563',
   },
   {
     type: 'refrigerator',

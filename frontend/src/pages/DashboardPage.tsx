@@ -29,11 +29,11 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-900">
       <Header />
       <main className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">プロジェクト一覧</h2>
+          <h2 className="text-2xl font-bold text-gray-100">プロジェクト一覧</h2>
           <button
             onClick={() => setIsDialogOpen(true)}
             className="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
@@ -43,9 +43,9 @@ export function DashboardPage() {
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md flex justify-between items-center">
+          <div className="mb-4 p-3 bg-red-900/20 border border-red-800 text-red-400 rounded-md flex justify-between items-center">
             <span>{error}</span>
-            <button onClick={clearError} className="text-red-500 hover:text-red-700 text-sm">
+            <button onClick={clearError} className="text-red-400 hover:text-red-300 text-sm">
               閉じる
             </button>
           </div>
@@ -53,7 +53,7 @@ export function DashboardPage() {
 
         {isLoading && projects.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-500">読み込み中...</p>
+            <p className="text-gray-400">読み込み中...</p>
           </div>
         ) : (
           <ProjectList projects={projects} onDelete={handleDelete} />
