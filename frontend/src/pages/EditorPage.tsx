@@ -12,6 +12,7 @@ import { FurniturePalette } from '../components/editor/FurniturePalette';
 import { FurniturePropertiesPanel } from '../components/editor/FurniturePropertiesPanel';
 import { FloorPlanImageLayer } from '../components/editor/FloorPlanImageLayer';
 import { FloorPlanPanel } from '../components/editor/FloorPlanPanel';
+import { SaveStatusIndicator } from '../components/editor/SaveStatusIndicator';
 import { useFurnitureStore } from '../store/furnitureStore';
 import { useAutoSave } from '../hooks/useAutoSave';
 
@@ -86,6 +87,7 @@ export function EditorPage() {
           <span className="text-sm text-gray-400">
             {currentProject.roomWidthMm / 10} x {currentProject.roomHeightMm / 10} cm
           </span>
+          <SaveStatusIndicator />
         </div>
       </header>
       <div className="flex-1 relative">
