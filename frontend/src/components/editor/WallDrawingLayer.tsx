@@ -68,9 +68,9 @@ export function WallDrawingLayer({ roomWidthMm, roomHeightMm }: WallDrawingLayer
           key={`wall-${i}`}
           points={wall.points}
           closed={wall.closed}
-          stroke="#1e293b"
+          stroke="#94a3b8"
           strokeWidth={3 / scale}
-          fill="rgba(148, 163, 184, 0.2)"
+          fill="rgba(148, 163, 184, 0.15)"
           listening={false}
         />
       ))}

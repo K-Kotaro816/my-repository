@@ -46,8 +46,8 @@ export function FloorPlanPanel() {
   };
 
   return (
-    <div className="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-3 z-20 w-56">
-      <h3 className="text-sm font-bold text-gray-900 mb-2">間取り図</h3>
+    <div className="absolute top-4 right-4 bg-gray-800 rounded-lg shadow-lg shadow-black/20 p-3 z-20 w-56">
+      <h3 className="text-sm font-bold text-gray-100 mb-2">間取り図</h3>
 
       <div className="flex gap-1 mb-3">
         <button
@@ -55,7 +55,7 @@ export function FloorPlanPanel() {
           className={`flex-1 py-1.5 text-xs rounded-md transition-colors ${
             currentProject.floorPlanMode === 'draw'
               ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
           }`}
         >
           壁描画
@@ -66,7 +66,7 @@ export function FloorPlanPanel() {
           className={`flex-1 py-1.5 text-xs rounded-md transition-colors ${
             currentProject.floorPlanMode === 'image'
               ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed'
+              : 'bg-gray-700 text-gray-300 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed'
           }`}
         >
           画像
@@ -75,10 +75,10 @@ export function FloorPlanPanel() {
 
       {currentProject.floorPlanImagePath ? (
         <div>
-          <p className="text-xs text-green-600 mb-2">画像アップロード済み</p>
+          <p className="text-xs text-green-400 mb-2">画像アップロード済み</p>
           <button
             onClick={handleRemove}
-            className="w-full py-1.5 text-xs text-red-600 border border-red-200 rounded-md hover:bg-red-50 transition-colors"
+            className="w-full py-1.5 text-xs text-red-400 border border-red-800 rounded-md hover:bg-red-900/20 transition-colors"
           >
             画像を削除
           </button>
@@ -95,7 +95,7 @@ export function FloorPlanPanel() {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
-            className="w-full py-2 text-xs bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors border border-dashed border-gray-300 disabled:opacity-50"
+            className="w-full py-2 text-xs bg-gray-700 text-gray-300 rounded-md hover:bg-gray-600 transition-colors border border-dashed border-gray-600 disabled:opacity-50"
           >
             {isUploading ? 'アップロード中...' : '間取り画像をアップロード'}
           </button>

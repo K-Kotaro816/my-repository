@@ -98,7 +98,7 @@ export function RoomCanvas({ roomWidthMm, roomHeightMm, children }: RoomCanvasPr
       draggable={isDraggable}
       onWheel={handleWheel}
       onDragEnd={handleDragEnd}
-      className="bg-gray-100"
+      className="bg-gray-950"
     >
       <Layer>
         <Rect
@@ -106,8 +106,8 @@ export function RoomCanvas({ roomWidthMm, roomHeightMm, children }: RoomCanvasPr
           y={0}
           width={roomWidthPx}
           height={roomHeightPx}
-          fill="#ffffff"
-          stroke="#94a3b8"
+          fill="#1e293b"
+          stroke="#475569"
           strokeWidth={2}
         />
       </Layer>

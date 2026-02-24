@@ -26,7 +26,7 @@ export function GridLayer({ roomWidthMm, roomHeightMm }: GridLayerProps) {
       <Line
         key={`v-${x}`}
         points={[x, 0, x, heightPx]}
-        stroke="#e2e8f0"
+        stroke="#334155"
         strokeWidth={0.5}
         listening={false}
       />,
@@ -39,7 +39,7 @@ export function GridLayer({ roomWidthMm, roomHeightMm }: GridLayerProps) {
       <Line
         key={`h-${y}`}
         points={[0, y, widthPx, y]}
-        stroke="#e2e8f0"
+        stroke="#334155"
         strokeWidth={0.5}
         listening={false}
       />,

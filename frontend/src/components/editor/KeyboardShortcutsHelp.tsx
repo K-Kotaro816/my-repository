@@ -14,24 +14,24 @@ const shortcuts = [
 
 export function KeyboardShortcutsHelp({ onClose }: KeyboardShortcutsHelpProps) {
   return (
-    <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl p-5 w-80">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="bg-gray-800 rounded-lg shadow-xl shadow-black/30 p-5 w-80">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-sm font-bold text-gray-900">キーボードショートカット</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg">
+          <h2 className="text-sm font-bold text-gray-100">キーボードショートカット</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-300 text-lg">
             &times;
           </button>
         </div>
         <table className="w-full text-xs">
           <tbody>
             {shortcuts.map((s) => (
-              <tr key={s.key} className="border-b border-gray-100 last:border-0">
+              <tr key={s.key} className="border-b border-gray-700 last:border-0">
                 <td className="py-2 pr-3">
-                  <kbd className="px-1.5 py-0.5 bg-gray-100 border border-gray-300 rounded text-gray-700 font-mono">
+                  <kbd className="px-1.5 py-0.5 bg-gray-700 border border-gray-600 rounded text-gray-300 font-mono">
                     {s.key}
                   </kbd>
                 </td>
-                <td className="py-2 text-gray-600">{s.description}</td>
+                <td className="py-2 text-gray-400">{s.description}</td>
               </tr>
             ))}
           </tbody>
