@@ -43,7 +43,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       <h2 className="text-2xl font-bold text-center mb-6">新規登録</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         {displayError && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-red-900/20 border border-red-800 text-red-400 px-4 py-3 rounded">
             {displayError}
             <button
               type="button"
@@ -51,7 +51,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
                 setValidationError('');
                 clearError();
               }}
-              className="float-right text-red-500 hover:text-red-700"
+              className="float-right text-red-400 hover:text-red-300"
             >
               &times;
             </button>
@@ -59,7 +59,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         )}
 
         <div>
-          <label htmlFor="displayName" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="displayName" className="block text-sm font-medium text-gray-300 mb-1">
             表示名（任意）
           </label>
           <input
@@ -67,13 +67,13 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
             type="text"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="表示名"
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
             メールアドレス
           </label>
           <input
@@ -82,13 +82,13 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="user@example.com"
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
             パスワード
           </label>
           <input
@@ -98,13 +98,13 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="8文字以上"
           />
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-1">
             パスワード（確認）
           </label>
           <input
@@ -114,7 +114,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
             minLength={8}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="もう一度入力"
           />
         </div>
@@ -127,9 +127,9 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           {isLoading ? '登録中...' : '登録'}
         </button>
 
-        <p className="text-center text-sm text-gray-600">
+        <p className="text-center text-sm text-gray-400">
           既にアカウントをお持ちですか？{' '}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-blue-400 hover:underline">
             ログイン
           </Link>
         </p>

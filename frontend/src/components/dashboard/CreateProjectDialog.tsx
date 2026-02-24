@@ -32,12 +32,12 @@ export function CreateProjectDialog({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">新規プロジェクト</h2>
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+      <div className="bg-gray-800 rounded-lg shadow-xl shadow-black/30 p-6 w-full max-w-md mx-4">
+        <h2 className="text-xl font-bold text-gray-100 mb-4">新規プロジェクト</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
               プロジェクト名
             </label>
             <input
@@ -46,14 +46,14 @@ export function CreateProjectDialog({
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="例: リビングルーム"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="width" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="width" className="block text-sm font-medium text-gray-300 mb-1">
                 幅 (cm)
               </label>
               <input
@@ -64,11 +64,11 @@ export function CreateProjectDialog({
                 min={100}
                 max={5000}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
-              <label htmlFor="height" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="height" className="block text-sm font-medium text-gray-300 mb-1">
                 奥行き (cm)
               </label>
               <input
@@ -79,7 +79,7 @@ export function CreateProjectDialog({
                 min={100}
                 max={5000}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-gray-100 placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
@@ -88,7 +88,7 @@ export function CreateProjectDialog({
             <button
               type="button"
               onClick={handleClose}
-              className="flex-1 py-2 px-4 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+              className="flex-1 py-2 px-4 border border-gray-600 text-gray-300 rounded-md hover:bg-gray-700 transition-colors"
             >
               キャンセル
             </button>
