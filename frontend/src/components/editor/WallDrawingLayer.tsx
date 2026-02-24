@@ -1,6 +1,7 @@
 import { Line, Circle } from 'react-konva';
 import type Konva from 'konva';
 import { useEditorStore } from '../../store/editorStore';
+import { useHistory } from '../../hooks/useHistory';
 import { PIXELS_PER_MM } from './RoomCanvas';
 
 interface WallDrawingLayerProps {
@@ -11,6 +12,7 @@ interface WallDrawingLayerProps {
 export function WallDrawingLayer({ roomWidthMm, roomHeightMm }: WallDrawingLayerProps) {
   const { tool, walls, currentWallPoints, isDrawing, addWallPoint, finishWall, scale } =
     useEditorStore();
+  const { pushSnapshot } = useHistory();
 
   const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     if (tool !== 'wall') return;
@@ -34,6 +36,7 @@ export function WallDrawingLayer({ roomWidthMm, roomHeightMm }: WallDrawingLayer
 
   const handleDblClick = () => {
     if (tool !== 'wall' || !isDrawing) return;
+    pushSnapshot();
     finishWall();
   };
 

@@ -4,6 +4,7 @@ import type Konva from 'konva';
 import { useEditorStore } from '../../store/editorStore';
 import { useFurnitureStore } from '../../store/furnitureStore';
 import { useCollisionDetection } from '../../hooks/useCollisionDetection';
+import { useHistory } from '../../hooks/useHistory';
 import { FURNITURE_CATALOG } from '../../constants/furnitureCatalog';
 import { PIXELS_PER_MM } from './RoomCanvas';
 import type { FurnitureItem } from '../../types/project';
@@ -25,6 +26,7 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
     selectFurniture,
   } = useFurnitureStore();
   const { checkCollisionsOnDrag, checkAllCollisions } = useCollisionDetection();
+  const { pushSnapshot } = useHistory();
 
   const isDraggable = tool === 'select' || tool === 'furniture';
   const roomWidthPx = roomWidthMm * PIXELS_PER_MM;
@@ -66,6 +68,7 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
       color: catalogItem.color,
     };
 
+    pushSnapshot();
     addFurniture(newItem);
   };
 
@@ -76,6 +79,7 @@ export function FurnitureLayer({ roomWidthMm, roomHeightMm }: FurnitureLayerProp
   };
 
   const handleDragEnd = (e: Konva.KonvaEventObject<DragEvent>, item: FurnitureItem) => {
+    pushSnapshot();
     const xMm = e.target.x() / PIXELS_PER_MM;
     const yMm = e.target.y() / PIXELS_PER_MM;
     updateFurniture(item.id, {

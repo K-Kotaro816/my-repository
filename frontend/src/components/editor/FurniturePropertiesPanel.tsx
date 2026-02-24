@@ -1,8 +1,10 @@
 import { useFurnitureStore } from '../../store/furnitureStore';
+import { useHistory } from '../../hooks/useHistory';
 
 export function FurniturePropertiesPanel() {
   const { furniture, selectedId, collidingIds, rotateFurniture, removeFurniture, selectFurniture } =
     useFurnitureStore();
+  const { pushSnapshot } = useHistory();
 
   const selectedItem = furniture.find((f) => f.id === selectedId);
   if (!selectedItem) return null;
@@ -36,13 +38,19 @@ export function FurniturePropertiesPanel() {
       </div>
       <div className="flex gap-2">
         <button
-          onClick={() => rotateFurniture(selectedItem.id)}
+          onClick={() => {
+            pushSnapshot();
+            rotateFurniture(selectedItem.id);
+          }}
           className="flex-1 py-1.5 px-3 text-xs bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
         >
           90°回転
         </button>
         <button
-          onClick={() => removeFurniture(selectedItem.id)}
+          onClick={() => {
+            pushSnapshot();
+            removeFurniture(selectedItem.id);
+          }}
           className="flex-1 py-1.5 px-3 text-xs text-red-600 border border-red-200 rounded-md hover:bg-red-50 transition-colors"
         >
           削除
