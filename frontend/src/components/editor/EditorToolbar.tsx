@@ -1,4 +1,7 @@
 import { useEditorStore, type EditorTool } from '../../store/editorStore';
+import { useCanvasStore } from '../../store/canvasStore';
+import { useProjectStore } from '../../store/projectStore';
+import { exportToPng } from '../../utils/exportCanvas';
 
 const tools: { id: EditorTool; label: string; description: string }[] = [
   { id: 'select', label: '選択', description: 'オブジェクト選択・パン' },
@@ -9,6 +12,13 @@ const tools: { id: EditorTool; label: string; description: string }[] = [
 
 export function EditorToolbar() {
   const { tool, setTool, gridVisible, toggleGrid, scale, isDrawing, cancelWall } = useEditorStore();
+  const stageRef = useCanvasStore((s) => s.stageRef);
+  const currentProject = useProjectStore((s) => s.currentProject);
+
+  const handleExport = () => {
+    if (!stageRef) return;
+    exportToPng(stageRef, currentProject?.name ?? 'layout');
+  };
 
   return (
     <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg p-2 z-20 flex flex-col gap-1">
@@ -45,6 +55,16 @@ export function EditorToolbar() {
           キャンセル
         </button>
       )}
+
+      <hr className="my-1 border-gray-200" />
+
+      <button
+        onClick={handleExport}
+        title="PNG画像として出力"
+        className="px-3 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+      >
+        PNG出力
+      </button>
 
       <hr className="my-1 border-gray-200" />
 

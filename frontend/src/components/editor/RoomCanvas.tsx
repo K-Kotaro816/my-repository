@@ -1,7 +1,8 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { Stage, Layer, Rect } from 'react-konva';
 import type Konva from 'konva';
 import { useEditorStore } from '../../store/editorStore';
+import { useCanvasStore } from '../../store/canvasStore';
 
 const PIXELS_PER_MM = 0.5;
 
@@ -14,6 +15,12 @@ interface RoomCanvasProps {
 export function RoomCanvas({ roomWidthMm, roomHeightMm, children }: RoomCanvasProps) {
   const stageRef = useRef<Konva.Stage>(null);
   const { scale, position, setScale, setPosition, tool } = useEditorStore();
+  const setStageRef = useCanvasStore((s) => s.setStageRef);
+
+  useEffect(() => {
+    setStageRef(stageRef.current);
+    return () => setStageRef(null);
+  }, [setStageRef]);
 
   const roomWidthPx = roomWidthMm * PIXELS_PER_MM;
   const roomHeightPx = roomHeightMm * PIXELS_PER_MM;
