@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import { useEditorStore, type EditorTool } from '../../store/editorStore';
 import { useCanvasStore } from '../../store/canvasStore';
 import { useProjectStore } from '../../store/projectStore';
+import { useHistoryStore } from '../../store/historyStore';
+import { useHistory } from '../../hooks/useHistory';
 import { exportToPng } from '../../utils/exportCanvas';
+import { KeyboardShortcutsHelp } from './KeyboardShortcutsHelp';
 
 const tools: { id: EditorTool; label: string; description: string }[] = [
   { id: 'select', label: '選択', description: 'オブジェクト選択・パン' },
@@ -14,6 +18,9 @@ export function EditorToolbar() {
   const { tool, setTool, gridVisible, toggleGrid, scale, isDrawing, cancelWall } = useEditorStore();
   const stageRef = useCanvasStore((s) => s.stageRef);
   const currentProject = useProjectStore((s) => s.currentProject);
+  const { canUndo, canRedo } = useHistoryStore();
+  const { undo, redo } = useHistory();
+  const [showHelp, setShowHelp] = useState(false);
 
   const handleExport = () => {
     if (!stageRef) return;
@@ -58,6 +65,27 @@ export function EditorToolbar() {
 
       <hr className="my-1 border-gray-200" />
 
+      <div className="flex gap-1">
+        <button
+          onClick={undo}
+          disabled={!canUndo}
+          title="元に戻す (Ctrl+Z)"
+          className="flex-1 px-2 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          ↩
+        </button>
+        <button
+          onClick={redo}
+          disabled={!canRedo}
+          title="やり直す (Ctrl+Y)"
+          className="flex-1 px-2 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          ↪
+        </button>
+      </div>
+
+      <hr className="my-1 border-gray-200" />
+
       <button
         onClick={handleExport}
         title="PNG画像として出力"
@@ -71,6 +99,16 @@ export function EditorToolbar() {
       <span className="px-3 py-1 text-xs text-gray-400 text-center">
         {Math.round(scale * 100)}%
       </span>
+
+      <button
+        onClick={() => setShowHelp(true)}
+        title="キーボードショートカット"
+        className="px-3 py-2 text-sm rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-700 transition-colors"
+      >
+        ?
+      </button>
+
+      {showHelp && <KeyboardShortcutsHelp onClose={() => setShowHelp(false)} />}
     </div>
   );
 }
