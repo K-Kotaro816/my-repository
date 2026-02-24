@@ -26,20 +26,25 @@ export function RoomCanvas({ roomWidthMm, roomHeightMm, children }: RoomCanvasPr
     return () => setStageRef(null);
   }, [setStageRef]);
 
-  // Initialize Stage transform from store on mount
+  const roomWidthPx = roomWidthMm * PIXELS_PER_MM;
+  const roomHeightPx = roomHeightMm * PIXELS_PER_MM;
+
+  // Initialize Stage: center the room on screen
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
-    const { scale, position } = useEditorStore.getState();
+    const { scale } = useEditorStore.getState();
+    const stageWidth = stage.width();
+    const stageHeight = stage.height();
+    const centerX = (stageWidth - roomWidthPx * scale) / 2;
+    const centerY = (stageHeight - roomHeightPx * scale) / 2;
     stage.scaleX(scale);
     stage.scaleY(scale);
-    stage.x(position.x);
-    stage.y(position.y);
+    stage.x(centerX);
+    stage.y(centerY);
+    setPosition({ x: centerX, y: centerY });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const roomWidthPx = roomWidthMm * PIXELS_PER_MM;
-  const roomHeightPx = roomHeightMm * PIXELS_PER_MM;
 
   const handleWheel = useCallback(
     (e: Konva.KonvaEventObject<WheelEvent>) => {
